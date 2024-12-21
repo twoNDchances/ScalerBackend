@@ -1,0 +1,2 @@
+[swarm]
+swarm_node ansible_host="{{ lookup('env', 'ANSIBLE_SWARM_HOST') }}" ansible_user="{{ username_swarm_node }}" ansible_ssh_pass="{{ password_swarm_node }}"

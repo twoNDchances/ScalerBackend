@@ -1,0 +1,17 @@
+- name: Scaling Swarm Playbook
+  hosts: swarm
+  become: yes
+  gather_facts: no
+  tasks:
+    - name: get replicas by service name
+      shell: docker service ls --format "{{ '{{.Name}}' }} {{ '{{.Replicas}}' }}" | grep "\b.*{{ service_name }}\b" | awk '{ print $2 }'
+      register: service_check
+      ignore_errors: true
+
+    - name: fail if container does not exist
+      fail:
+        msg: "The '{{ service_name }}' service does not exist!"
+      when: service_check.stdout == ""
+    
+    - name: perform scaling
+      shell: docker service scale {{ service_name }}={{ replicas }}
