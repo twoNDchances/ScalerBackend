@@ -186,7 +186,7 @@ def processor(elasticsearch_response: Elasticsearch):
         if runner.status == 'failed':
             elasticsearch_response.index(index='responser-swarm-errorlogs', document={
                 'responser_name': responser_name,
-                'message': event['stdout'],
+                'message': errorlogs,
                 'pattern': 'ansible_playbook'
             })
             print('error roi')
