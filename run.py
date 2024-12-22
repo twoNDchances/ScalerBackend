@@ -190,7 +190,7 @@ def processor(elasticsearch_response: Elasticsearch):
                 'pattern': 'ansible_playbook'
             })
             print('error roi')
-            critical(msg=dumps(event['stdout']))
+            critical(msg=dumps(errorlogs))
             is_error = True
         time_now = int(datetime.now().timestamp())
         if is_error is True:
