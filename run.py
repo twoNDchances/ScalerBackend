@@ -186,11 +186,11 @@ def processor(elasticsearch_response: Elasticsearch):
         if runner.status == 'failed':
             elasticsearch_response.index(index='responser-swarm-errorlogs', document={
                 'responser_name': responser_name,
-                'message': errorlogs,
+                'message': runner.stdout,
                 'pattern': 'ansible_playbook'
             })
             print('error roi')
-            critical(msg=dumps(errorlogs))
+            critical(msg=runner.stdout)
             is_error = True
         time_now = int(datetime.now().timestamp())
         if is_error is True:
